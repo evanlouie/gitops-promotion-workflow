@@ -19,6 +19,11 @@ guards and pre/post-triggers for actions such as merging. Adding to this, by uti
 the defacto state of what should be on the cluster; and as of [v1.11.0](https://github.com/weaveworks/flux/releases/tag/1.11.0), what
 [should no longer be there](https://github.com/weaveworks/flux/blob/1.11.0/site/garbagecollection.md).
 
+#### Fabrikate
+
+Taking the ideas of Helm and adding an extra layer of configuration on top of it, [Fabrikate](https://github.com/Microsoft/fabrikate/)
+allows users to compose and nest Helm charts and vanilla K8s manifests together into what are called High Level Definitions.
+Fabrikate can materialize these HLDs into standard K8s manifests which we can then `apply` to our cluster.
 
 ## The Problem
 
