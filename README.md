@@ -1,8 +1,3 @@
----
-author: Evan Louie <evan.louie@microsoft.com>
-geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
----
-
 # GitOps Environment Promotion Workflow
 
 This is a living document outlining a potential solution to environment based promotion of cluster states.
