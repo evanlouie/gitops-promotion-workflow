@@ -1,0 +1,24 @@
+title Promotion Workflow - Developer Experience
+
+loop Commit changes till ready for next deploy
+    Dev->+GitHub: Commit Code on a work branch and create PR
+    GitHub-->-Dev: Approval
+    Dev->GitHub: Merge branch to Master
+end
+
+Dev->+GitHub: Create a Release based on master
+GitHub->GitHub: Trigger 'release' webhook
+GitHub->-CI: Build an imaged tagged on release number
+
+Dev->+GitHub: Update app HLD config to point to new \nimage tag and create PR to master
+GitHub-->-Dev: Approval
+Dev->GitHub: Merge to Master
+
+loop repeat for all env until reaching prod
+    Dev->+GitHub: PR to merge current promotion env to next env\n(ie. master->dev, dev->stage, stage->prod)
+    GitHub->GitHub: Ensure PR is merging whitelisted merge paths\n(ie. dev->stage, stage->prod)
+    GitHub-->-Dev: Approval
+    
+    Dev->GitHub: Merge to next env
+    GitHub->CI: Trigger `fab install && fab generate` \non all top level HLD using the app
+end
