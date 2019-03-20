@@ -20,5 +20,6 @@ loop repeat for all env until reaching prod
     GitHub-->-Dev: Approval
     
     Dev->GitHub: Merge to next env
-    GitHub->CI: Trigger `fab install && fab generate` \non all top level HLD using the app
+    GitHub->+CI: Trigger `fab install && fab generate` \non all top level HLD using the app
+    CI->-GitHub: Push updated K8s manifests to manifests repo
 end

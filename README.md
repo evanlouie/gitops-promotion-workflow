@@ -1,6 +1,7 @@
 # GitOps Environment Promotion Workflow
 
-This is a living document outlining a potential solution to environment based promotion of cluster states.
+This is a living document outlining a potential solution/workflow for promoting new releases through environment gates
+in the context of GitOps.
 
 | Version | Date       | Description |
 | ------- | ---------- | ----------- |
@@ -48,13 +49,15 @@ would require high amounts of templating and potentially too much automation in 
 
 ### Rationale
 
-The proposed solution aims to solve the problem outlined while:
+The proposed workflow aims to solve the problem outlined while:
 
 - Minimizing the amount of state which the CI system has to keep track of.
-  - The proposed solution holds **no** state in the CI system. Using only GitHub events.
+  - The proposed workflow holds **no** state in the CI system. Using only GitHub events.
 - Materialization of HLD's (whether they be cluster or application level) should be idempotent; and safe to call n+1 times.
+  - The proposed workflow only requires a single `materialize` function in CI which will re-materialize the clusters top level HLD.
 - Reduce the overhead for DevOps teams; assistance from a DevOps teams should not be required by a dev team to deploy a new release of an application.
-  - The proposed solution, once setup in the application repositories, requires no DevOps assistance or monitoring.
+  - The proposed workflow, once setup in the application repositories, requires no DevOps assistance or monitoring.
+  - From the developer prospective, they only need to interact with the GitHub (no interaction with CI tooling).
 
 ### State of the System
 
@@ -63,7 +66,7 @@ The proposed solution aims to solve the problem outlined while:
 - A clusters Flux deployment points to a branch of the  clusters manifest repository.
 - Every application deployed to a cluster contains their own HLD and is hosted on their own Git repository.
 - Every application repository has at minimum 4 branches: `master`, `dev`, `stage`, `prod`
-- Every application repostiory contains a directory which contains their Fabrikate component definition.
+- Every application repository contains a directory which contains their Fabrikate component definition.
 
 ### The Workflow
 
