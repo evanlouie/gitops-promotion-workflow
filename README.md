@@ -125,7 +125,7 @@ subcomponents:
 
 My `cat-application` and `dog-application` will have their own per-environment Fabrikate component definitions.
 
-`./hld/component.yaml`
+`./hld/component.yaml`:
 
 ```yaml
 name: cat-application
@@ -142,8 +142,8 @@ config:
     tag: v1.1.0
 ```
 
-In this example, `./` is the root directory of the application code while `./cat-chart` is the 
-directory containing a helm chart for the `cat-application`.
+In this example, `./` is the root directory of the application code, `./hld` contains our Fabrikate component, 
+and `./hld/cat-chart` contains a helm chart for the `cat-application`.
 
 By placing the the `cat-application`'s Fabrikate component and Helm chart into the application git repository itself, we 
 have enabled DevOps teams to hand off the ability for development teams to manage for themselves what is deployed
