@@ -138,8 +138,8 @@ config:
     tag: v1.1.0
 ```
 
-In this example, `./cat-chart` will be a directory containing a helm chart for the entire `cat-application`; in general 
-this helm chart will not need to change often.
+In this example, `./` is the root directory of the application code while `./cat-chart` is the 
+directory containing a helm chart for the `cat-application`.
 
 By placing the the `cat-application`'s Fabrikate component and Helm chart into the application git repository itself, we 
 have enabled DevOps teams to hand off the ability for development teams to manage for themselves what is deployed
