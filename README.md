@@ -38,7 +38,7 @@ Moving forward, we will focus on the scenario where we have 3 environments we wi
 - `stage`
 - `prod`
 
-We can go under the assumption that our CI pipeline has setup guards to only allow merging from `dev` -> `stage` and `stage` -> `prod`.
+We can go under the assumption that our CI pipeline has setup guards to only allow merging from `dev` to `stage` and `stage` to `prod`.
 
 With this example in mind, we need a means for development teams to promote there changes from `dev` to `stage` to `prod` via
 the GitOps workflow and Fabrikate. 
