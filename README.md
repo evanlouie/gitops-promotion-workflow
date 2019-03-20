@@ -141,9 +141,10 @@ config:
 In this example, `./cat-chart` will be a directory containing a helm chart for the entire `cat-application`; in general 
 this helm chart will not need to change often.
 
-By placing the the `cat-application` Fabrikate component and Helm chart into the application git repository itself, we 
-have enabled something very much wanted to DevOps teams; the ability for development teams to manage for themselves what is deployed
-to the cluster.
+By placing the the `cat-application`'s Fabrikate component and Helm chart into the application git repository itself, we 
+have enabled DevOps teams to hand off the ability for development teams to manage for themselves what is deployed
+to the cluster. As well as given the application HLD's a coupling too the code they are deploying and their own git
+git system to utilize for versioning.
 
 #### Developer Experience/Workflow
 
