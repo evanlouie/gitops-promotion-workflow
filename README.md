@@ -42,8 +42,12 @@ We can go under the assumption that our CI pipeline has setup guards to only all
 
 With this example in mind, we need a means for development teams to promote there changes from `dev` to `stage` to `prod` via
 the GitOps workflow and Fabrikate. 
-This quickly becomes unwieldy to do via single HLD as managing and passing image tags in the clusters HLD config
-would require high amounts of templating and a high amount of state to be kept in your CI/CD pipeline.
+
+One potential solution is set image-tag config in the cluster level HLD, however this quickly becomes unwieldy as the cluster HLD config
+will now have to be editable by every developer on every team which has an application on the cluster. You could also 
+have your CI pipeline programmatically keep track of and inject image-tag numbers into the config specific for target environments. 
+However this will require extra tracking of state for the CI pipeline and make reversions or cancellations of workflows
+difficult (requiring the tracking of changes and subsequent undoing of any changes to the manifest repository).
 
 ## The Solution
 
@@ -52,9 +56,9 @@ would require high amounts of templating and a high amount of state to be kept i
 The proposed workflow aims to solve the problem outlined while:
 
 - Minimizing the amount of state which the CI system has to keep track of.
-  - The proposed workflow holds **no** state in the CI system. Using only GitHub events.
+  - The proposed workflow holds **no** state in the CI system. Using only GitHub triggers.
 - Materialization of HLD's (whether they be cluster or application level) should be idempotent; and safe to call n+1 times.
-  - The proposed workflow only requires a single `materialize` function in CI which will re-materialize the clusters top level HLD.
+  - The materialzation of the cluster HLD is a pure idempotent function, using its own config and `subcomponents` as args; no runtime variables needed.
 - Reduce the overhead for DevOps teams; assistance from a DevOps teams should not be required by a dev team to deploy a new release of an application.
   - The proposed workflow, once setup in the application repositories, requires no DevOps assistance or monitoring.
   - From the developer prospective, they only need to interact with the GitHub (no interaction with CI tooling).
