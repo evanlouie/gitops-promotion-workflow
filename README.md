@@ -31,17 +31,30 @@ In real life scenarios, the standard GitOps approach needs guidance and best pra
 development pipelines. More often then not, we will have multiple clusters and environments within those clusters each representing
 different deployments and states of our system.
 
-Moving forward, we will focus on the scenario where we have 3 environments:
+Moving forward, we will focus on the scenario where we have 3 environments we wish to promote our changes through:
 
 - `dev`
 - `stage`
 - `prod`
 
+We can go under the assumption that our CI pipeline has setup guards to only allow merging from `dev` -> `stage` and `stage` -> `prod`.
+
 With this example in mind, we need a means for development teams to promote there changes from `dev` to `stage` to `prod` via
-the GitOps workflow and Fabrikate. This quickly becomes unwieldy to do via single HLD as managing and passing image numbers in the
+the GitOps workflow and Fabrikate. 
+This quickly becomes unwieldy to do via single HLD as managing and passing image numbers in the
 would require high amounts of templating and potentially too much automation in your CI/CD pipeline.
 
 ## The Solution
+
+### Rationale
+
+The proposed solution aims to solve the problem outlined while:
+
+- Minimizing the amount of state which the CI system has to keep track of.
+  - The proposed solution holds **no** state in the CI system. Using only GitHub events.
+- Materialization of HLD's (whether they be cluster or application level) should be idempotent; and safe to call n+1 times.
+- Reduce the overhead for DevOps teams; assistance from a DevOps teams should not be required by a dev team to deploy a new release of an application.
+  - The proposed solution, once setup in the application repositories, requires no DevOps assistance or monitoring.
 
 ### State of the System
 
@@ -63,6 +76,11 @@ On `dev`:
 ```yaml
 name: "my-cluster"
 subcomponents:
+  # DevOps tools
+  - name: "cloud-native"
+    source: "https://github.com/timfpark/fabrikate-cloud-native"
+    method: "git"
+  # Applications
   - name: "cat-application"
     source: "https://github.com/some/git-repository-for-cat"
     method: "git"
@@ -80,6 +98,11 @@ On `stage`:
 ```yaml
 name: "my-cluster"
 subcomponents:
+  # DevOps tools
+  - name: "cloud-native"
+    source: "https://github.com/timfpark/fabrikate-cloud-native"
+    method: "git"
+  # Application
   - name: "cat-application"
     source: "https://github.com/some/git-repository-for-cat"
     method: "git"
