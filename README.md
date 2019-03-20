@@ -65,8 +65,9 @@ The proposed workflow aims to solve the problem outlined while:
 - A clusters manifests repository has a branch for every environment the the cluster can have; in this case 3: `dev`, `stage`, and `prod`.
 - A clusters Flux deployment points to a branch of the  clusters manifest repository.
 - Every application deployed to a cluster contains their own HLD and is hosted on their own Git repository.
-- Every application repository has at minimum 4 branches: `master`, `dev`, `stage`, `prod`
+- Every application repository has at minimum 4 branches: `master`, `dev`, `stage`, `prod`.
 - Every application repository contains a directory which contains their Fabrikate component definition.
+- Every application repository has guards on protected branches to only allow merging from white-listed branches (ie. `dev` to `stage` and `stage` to `prod`)
 
 ### The Workflow
 
