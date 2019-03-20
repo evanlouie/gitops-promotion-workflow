@@ -9,6 +9,7 @@ end
 Dev->+GitHub: Create a Release based on master
 GitHub->GitHub: Trigger 'release' webhook
 GitHub->-CI: Build an imaged tagged on release number
+CI->GitHub: Attach Image to release (optional)
 
 Dev->+GitHub: Update app HLD config to point to new \nimage tag and create PR to master
 GitHub-->-Dev: Approval
