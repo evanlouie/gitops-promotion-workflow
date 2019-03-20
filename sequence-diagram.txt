@@ -16,10 +16,11 @@ Dev->GitHub: Merge to Master
 
 loop repeat for all env until reaching prod
     Dev->+GitHub: PR to merge current promotion env to next env\n(ie. master->dev, dev->stage, stage->prod)
-    GitHub->GitHub: Ensure PR is merging whitelisted merge paths\n(ie. dev->stage, stage->prod)
+    GitHub->+CI: Ensure PR base & target are a whitelisted combination\n(ie. dev->stage, stage->prod)
+    CI-->-GitHub: Approval
     GitHub-->-Dev: Approval
     
     Dev->GitHub: Merge to next env
     GitHub->+CI: Trigger `fab install && fab generate` \non all top level HLD using the app
-    CI->-GitHub: Push updated K8s manifests to manifests repo
+    CI->-GitHub: Push updated K8s manifests to the\npromoted branch of the manifests repo
 end
