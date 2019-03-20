@@ -42,8 +42,8 @@ We can go under the assumption that our CI pipeline has setup guards to only all
 
 With this example in mind, we need a means for development teams to promote there changes from `dev` to `stage` to `prod` via
 the GitOps workflow and Fabrikate. 
-This quickly becomes unwieldy to do via single HLD as managing and passing image numbers in the
-would require high amounts of templating and potentially too much automation in your CI/CD pipeline.
+This quickly becomes unwieldy to do via single HLD as managing and passing image tags in the clusters HLD config
+would require high amounts of templating and a high amount of state to be kept in your CI/CD pipeline.
 
 ## The Solution
 
